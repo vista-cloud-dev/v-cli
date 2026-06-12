@@ -18,3 +18,11 @@ check: vet lint test build
 
 clean:
 	rm -rf dist/
+
+# Regenerate the umbrella registry (v-cli-platform.md §5) → dist/v-registry.json.
+registry:
+	UPDATE_GOLDEN=1 go test -run Registry .
+
+# Drift gate: fail if dist/v-registry.json is stale vs the pinned domains' contracts.
+check-registry:
+	go test -run Registry .
