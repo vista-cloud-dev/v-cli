@@ -1,4 +1,4 @@
-module github.com/vista-cloud-dev/v
+module github.com/vista-cloud-dev/v-cli
 
 go 1.26.3
 
