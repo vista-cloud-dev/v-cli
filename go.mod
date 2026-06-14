@@ -4,7 +4,7 @@ go 1.26.3
 
 require (
 	github.com/alecthomas/kong v1.15.0
-	github.com/vista-cloud-dev/v-pkg v0.0.0-00010101000000-000000000000
+	github.com/vista-cloud-dev/v-pkg v0.1.0
 	github.com/willabides/kongplete v0.4.0
 )
 
@@ -29,5 +29,3 @@ require (
 	golang.org/x/sys v0.44.0 // indirect
 	golang.org/x/term v0.43.0 // indirect
 )
-
-replace github.com/vista-cloud-dev/v-pkg => ../v-pkg
