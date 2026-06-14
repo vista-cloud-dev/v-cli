@@ -1,0 +1,12 @@
+{
+  "id": "tool:v-cli",
+  "repo": "https://github.com/vista-cloud-dev/v-cli",
+  "role": "The `v` CLI umbrella — VistA developer tooling (v pkg/db/config/…) aggregated under one binary",
+  "language": ["go"],
+  "layer": "v",
+  "license": "AGPL-3.0",
+  "exposes": {
+    "registry": "dist/v-registry.json"
+  },
+  "verification_commands": ["go test ./...", "./dist/m arch check ."]
+}
