@@ -11,7 +11,7 @@ import (
 
 // NewCmd is `v new <domain>` (CQ4): scaffold a new v domain tool. It enforces
 // the plain-language rule on the domain name and emits a minimal,
-// convention-conforming skeleton (the inline form of v-tool-template). A domain
+// convention-conforming skeleton built into `v new`. A domain
 // is born with: a Go module github.com/vista-cloud-dev/v-<domain>, an importable
 // <domain>cli command package the umbrella mounts, and a Makefile.
 type NewCmd struct {
@@ -55,8 +55,8 @@ func (c *NewCmd) Run(cc *clikit.Context) error {
 }
 
 // scaffoldDomain returns the relative-path → content map for a new domain
-// skeleton (the inline v-tool-template). Kept minimal and convention-conforming;
-// the standalone v-tool-template repo will supersede it.
+// skeleton. Kept minimal and convention-conforming; the skeleton is built into
+// `v new` (there is no standalone template repo).
 func scaffoldDomain(domain string) (map[string]string, error) {
 	mod := "github.com/vista-cloud-dev/v-" + domain
 	pkg := domain + "cli"

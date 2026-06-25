@@ -6,7 +6,7 @@
 //
 //	v pkg decompose OR_3.0_484.KID ./patches/
 //	v pkg roundtrip OR_3.0_484.KID
-//	v new <domain>          # scaffold a new v domain from v-tool-template
+//	v new <domain>          # scaffold a new v domain from the built-in skeleton
 //
 // NOTE (single-domain composition): `v` mounts v-pkg's pkgcli, whose command Run
 // methods take a *v-pkg/clikit.Context, so `v` uses v-pkg/clikit as its clikit.
@@ -31,7 +31,7 @@ type CLI struct {
 
 	Pkg pkgcli.Commands `cmd:"" name:"pkg" help:"VistA package (KIDS) tools: decompose / assemble / roundtrip / canonicalize / lint."`
 
-	New NewCmd `cmd:"" help:"Scaffold a new v domain tool from v-tool-template."`
+	New NewCmd `cmd:"" help:"Scaffold a new v domain tool from a built-in skeleton."`
 
 	Schema  clikit.SchemaCmd  `cmd:"" help:"Emit the aggregated command/flag/enum tree as JSON (agent discovery)."`
 	Version clikit.VersionCmd `cmd:"" help:"Show version and build info."`
