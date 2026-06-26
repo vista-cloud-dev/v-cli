@@ -8,11 +8,11 @@
 //	v pkg roundtrip OR_3.0_484.KID
 //	v new <domain>          # scaffold a new v domain from the built-in skeleton
 //
-// NOTE (single-domain composition): `v` mounts v-pkg's pkgcli, whose command Run
-// methods take a *v-pkg/clikit.Context, so `v` uses v-pkg/clikit as its clikit.
-// That is correct for one domain; mounting a SECOND domain (each with its own
-// vendored clikit type) requires extracting clikit into a shared module — a
-// recorded prerequisite for the next domain, not for T0a.0.
+// Composition: `v` and every mounted domain share one clikit.Context type from
+// the standalone github.com/vista-cloud-dev/clikit module (extracted from
+// v-pkg/clikit 2026-06-25). That shared type is what lets the umbrella mount more
+// than one domain — a second domain mounts here as another named CLI field with
+// no further clikit work.
 package main
 
 import (
