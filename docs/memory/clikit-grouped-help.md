@@ -35,4 +35,5 @@ root (Introspect group) → `v explore` opens the interactive palette over the w
 `v` tree (incl. `pkg`). Deliberately NOT in `pkgcli.Commands`, so there is no
 confusing `v pkg explore` (verified: 0 hits). Build/vet/test green; mounting +
 non-TTY fallback smoke-tested. Phase 2 rollout complete across clikit/m-cli/
-v-pkg/v-cli. Phase 3 (`browser`) remains a sketch.
+v-pkg/v-cli. Phase 3 (`browser`/Miller columns) is rejected as out of scope —
+Miller columns browse data, not a fixed command tree.
