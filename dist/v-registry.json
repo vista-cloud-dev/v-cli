@@ -4,7 +4,7 @@
   "domains": [
     {
       "domain": "pkg",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "contractVersion": "1.0",
       "exits": [
         {
@@ -113,6 +113,20 @@
         },
         {
           "path": [
+            "classify"
+          ],
+          "help": "Derive a .KID's reversibility class (pure-overwrite vs side-effecting) from its structure — no engine.",
+          "args": [
+            {
+              "name": "kid-file",
+              "type": "string",
+              "required": true,
+              "help": "Path to the .KID file."
+            }
+          ]
+        },
+        {
+          "path": [
             "lint"
           ],
           "help": "Run the PIKS data-class gate over a .KID (exit 3 on a blocked file).",
@@ -190,6 +204,21 @@
               ],
               "default": "remote",
               "help": "Driver transport: local | docker | remote."
+            },
+            {
+              "name": "snapshot",
+              "type": "string",
+              "help": "Capture the pre-image of any routine this install overwrites to this .KID before installing (enables uninstall --restore)."
+            },
+            {
+              "name": "auto-snapshot",
+              "type": "bool",
+              "help": "Like --snapshot, but to the conventional sidecar path (\u003ckid\u003e.preimage.kids) that uninstall auto-detects."
+            },
+            {
+              "name": "allow-overwrite",
+              "type": "bool",
+              "help": "Overwrite existing routines WITHOUT capturing a pre-image (unsafe: uninstall cannot then restore them)."
             }
           ],
           "args": [
@@ -198,6 +227,96 @@
               "type": "string",
               "required": true,
               "help": "Path to the built .KID transport file to install on the live engine."
+            }
+          ]
+        },
+        {
+          "path": [
+            "snapshot"
+          ],
+          "help": "Capture the live pre-image of a patch's routines into a restorable .KID (class-1 reversal).",
+          "flags": [
+            {
+              "name": "engine",
+              "type": "enum",
+              "enum": [
+                "ydb",
+                "iris"
+              ],
+              "required": true,
+              "help": "Engine to reach: ydb or iris."
+            },
+            {
+              "name": "transport",
+              "type": "enum",
+              "enum": [
+                "local",
+                "docker",
+                "remote"
+              ],
+              "default": "remote",
+              "help": "Driver transport: local | docker | remote."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "help": "install name for the snapshot build (default: \"\u003corig\u003e PREIMAGE\")."
+            }
+          ],
+          "args": [
+            {
+              "name": "kid-file",
+              "type": "string",
+              "required": true,
+              "help": "the .KID about to be installed — the live pre-image of its routines is captured."
+            },
+            {
+              "name": "out-kid",
+              "type": "string",
+              "required": true,
+              "help": "output path for the pre-image snapshot .KID (what 'v pkg restore' re-applies)."
+            }
+          ]
+        },
+        {
+          "path": [
+            "restore"
+          ],
+          "help": "Re-apply a pre-image snapshot .KID to revert routines to stock (preview by default; --commit installs).",
+          "flags": [
+            {
+              "name": "engine",
+              "type": "enum",
+              "enum": [
+                "ydb",
+                "iris"
+              ],
+              "required": true,
+              "help": "Engine to reach: ydb or iris."
+            },
+            {
+              "name": "transport",
+              "type": "enum",
+              "enum": [
+                "local",
+                "docker",
+                "remote"
+              ],
+              "default": "remote",
+              "help": "Driver transport: local | docker | remote."
+            },
+            {
+              "name": "commit",
+              "type": "bool",
+              "help": "DESTRUCTIVE: install the snapshot on the live engine (overwrites the live routines). Default off = preview."
+            }
+          ],
+          "args": [
+            {
+              "name": "kid-file",
+              "type": "string",
+              "required": true,
+              "help": "the pre-image snapshot .KID to re-apply (restore to its captured state)."
             }
           ]
         },
@@ -227,6 +346,11 @@
               ],
               "default": "remote",
               "help": "Driver transport: local | docker | remote."
+            },
+            {
+              "name": "drift",
+              "type": "bool",
+              "help": "Also check whether each shipped routine still matches the patch on the live engine (detects a later national patch overwriting it)."
             }
           ],
           "args": [
@@ -264,6 +388,26 @@
               ],
               "default": "remote",
               "help": "Driver transport: local | docker | remote."
+            },
+            {
+              "name": "restore",
+              "type": "string",
+              "help": "Pre-image snapshot .KID to restore instead of deleting (class-1 reversal for a patched-over routine)."
+            },
+            {
+              "name": "backout",
+              "type": "string",
+              "help": "Authored back-out .KID to install instead of deleting (class-2 reversal of a side-effecting patch)."
+            },
+            {
+              "name": "force",
+              "type": "bool",
+              "help": "Delete routines even for a side-effecting patch (UNSAFE: orphans install-time data/side-effects)."
+            },
+            {
+              "name": "verify",
+              "type": "bool",
+              "help": "After a restore/back-out, confirm the live routines now match the re-applied artifact (verify-clean)."
             }
           ],
           "args": [
@@ -271,7 +415,7 @@
               "name": "kid-file",
               "type": "string",
               "required": true,
-              "help": "Path to the .KID whose install to reverse (routine-only back-out)."
+              "help": "Path to the .KID whose install to reverse."
             }
           ]
         }
