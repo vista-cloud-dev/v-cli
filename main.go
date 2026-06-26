@@ -29,12 +29,12 @@ import (
 type CLI struct {
 	clikit.Globals
 
-	Pkg pkgcli.Commands `cmd:"" name:"pkg" help:"VistA package (KIDS) tools: decompose / assemble / roundtrip / canonicalize / lint."`
+	Pkg pkgcli.Commands `cmd:"" name:"pkg" group:"Domains" help:"VistA package (KIDS) tools: decompose / assemble / roundtrip / canonicalize / lint."`
 
-	New NewCmd `cmd:"" help:"Scaffold a new v domain tool from a built-in skeleton."`
+	New NewCmd `cmd:"" group:"Scaffold" help:"Scaffold a new v domain tool from a built-in skeleton."`
 
-	Schema  clikit.SchemaCmd  `cmd:"" help:"Emit the aggregated command/flag/enum tree as JSON (agent discovery)."`
-	Version clikit.VersionCmd `cmd:"" help:"Show version and build info."`
+	Schema  clikit.SchemaCmd  `cmd:"" group:"Introspect" help:"Emit the aggregated command/flag/enum tree as JSON (agent discovery)."`
+	Version clikit.VersionCmd `cmd:"" group:"Introspect" help:"Show version and build info."`
 
 	InstallCompletions kongplete.InstallCompletions `cmd:"" help:"Install shell tab-completions."`
 }
