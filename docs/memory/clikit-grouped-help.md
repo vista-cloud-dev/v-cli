@@ -27,4 +27,12 @@ Inspect/Transform/Build & install/Back-out groups (breadcrumb title "v pkg").
 Gates: build/vet clean, `go test ./...` green.
 
 This completes the clikit discovery-UX Phase 1 rollout (clikit → m-cli → v-pkg →
-v-cli). Phases 2–3 (interactive `explore`/`browser`) remain sketches.
+v-cli).
+
+**Phase 2 — `v explore` (2026-06-26).** Repinned clikit v0.2.0 → v0.3.2 and
+v-pkg v0.4.0 → v0.5.0, and mounted `Explore clikit.ExploreCmd` in the umbrella
+root (Introspect group) → `v explore` opens the interactive palette over the whole
+`v` tree (incl. `pkg`). Deliberately NOT in `pkgcli.Commands`, so there is no
+confusing `v pkg explore` (verified: 0 hits). Build/vet/test green; mounting +
+non-TTY fallback smoke-tested. Phase 2 rollout complete across clikit/m-cli/
+v-pkg/v-cli. Phase 3 (`browser`) remains a sketch.
