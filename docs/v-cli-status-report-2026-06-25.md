@@ -261,12 +261,13 @@ repos under `~/vista-cloud-dev/`:
   Python py-kids-vc → Go). A mature offline core (decompose/assemble/canonicalize
   byte-identical to py-kids-vc on the corpus) **plus** a feature-complete,
   dual-engine-proven live KIDS lifecycle (build/install/verify/uninstall +
-  classify/snapshot/restore patch-reversibility). It vendors **`clikit`**
-  (the shared CLI kit), **`pkgcli`** (the mounted verb surface), and
-  **`vcontract`** (the `Manifest`/`Contract` registry type) — all three imported
-  by v-cli. Open frontier: live-VistA package *extraction* (P4, design-only) and
-  an IRIS re-validation of the chunked install path. *Housekeeping:* its README
-  is stale (still "m-kids", Apache-2.0).
+  classify/snapshot/restore patch-reversibility). It exports **`pkgcli`** (the
+  mounted verb surface) and **`vcontract`** (the `Manifest`/`Contract` registry
+  type), both imported by v-cli; as of v0.3.0 it consumes the shared
+  **`clikit`** module rather than vendoring its own copy (see finding #3). Open
+  frontier: live-VistA package *extraction* (P4, design-only) and an IRIS
+  re-validation of the chunked install path. *Housekeeping:* its README is stale
+  (still "m-kids", Apache-2.0).
 
 - **m-driver-sdk** (layer `m`, Go, pinned **v0.3.0**) — **the transport seam.**
   Exports `mdriver.Client` + a `Transport` interface; the *only* sanctioned path
@@ -314,21 +315,32 @@ repos under `~/vista-cloud-dev/`:
 
 ## 7. Findings & recommended follow-ups
 
-1. **Re-pin v-pkg.** The umbrella pins `v-pkg v0.1.0` (10 verbs) but v-pkg HEAD
-   has 13 (`classify`, `snapshot`, `restore`). Tag a new v-pkg, bump the pin, run
-   `make registry`. *(Closes the §2 pin lag.)*
-2. **Graduate `v-cli-platform.md` into this repo.** It still lives in
-   `m-stdlib/docs/plans/` and is DRAFT/stale on two points (it references the
-   deleted `v-tool-template` repo and the "not-yet-existing" v-cli home). The repo
-   now exists and has **no `docs/` of its own** (this report is the first doc).
-   Move the spec here and refresh the two stale references.
-3. **Extract `clikit` into a shared module** (e.g. `vista-cloud-dev/clikit`).
-   This is the one hard prerequisite for a second domain — flagged in
-   `main.go:11-15`. It is the highest-leverage next engineering step.
-4. **Pick the second domain** once clikit is shared. `vista-info-hub` → `v vista`
+> **Update 2026-06-25 (same day):** findings #1–#3 are **DONE** — see the
+> resolution notes inline below.
+
+1. ✅ **DONE — Re-pin v-pkg.** Cut **v-pkg v0.2.0** (declared the 13-verb surface;
+   adds `classify`/`snapshot`/`restore`), re-pinned the umbrella, regenerated
+   `dist/v-registry.json` (10 → 13 verbs at domain version 0.2.0). *(Closed the
+   pin lag. Superseded same day by v0.3.0 — see #3.)*
+2. ✅ **DONE — Graduate `v-cli-platform.md` into this repo.** The spec now lives at
+   `docs/v-cli-platform.md` (canonical home), refreshed: status draft → adopted,
+   §6/CQ4 rewritten (the `v-tool-template` repo was deleted; the skeleton is built
+   into `v new`), links fixed. The old `m-stdlib/docs/plans/v-cli-platform.md` is a
+   redirect stub so inbound links still resolve; the org `CLAUDE.md` pointer now
+   points here.
+3. ✅ **DONE — Extract `clikit` into a shared module.** Created
+   **`github.com/vista-cloud-dev/clikit` v0.1.0** (public, from the canonical
+   go-cli-template copy). Migrated **v-pkg** onto it (deleted its vendored copy,
+   released **v0.3.0** — breaking Go API bump, command surface unchanged) and
+   **v-cli** onto it (pinned clikit v0.1.0 + v-pkg v0.3.0). The umbrella and every
+   mounted domain now share one `clikit.Context` type, so **a second domain can be
+   mounted with no further clikit work** — the documented blocker is gone.
+   *(Scope: v-family only; m-cli / m-dev-tools-mcp / go-cli-template still vendor
+   their own copies and can migrate when next touched.)*
+4. **Pick the second domain** (now unblocked). `vista-info-hub` → `v vista`
    is the lowest-friction (already Go, already command-shaped).
 5. **Add a `CLAUDE.md` to v-cli.** The repo inherits org rules but has no
-   per-repo CLAUDE.md; one would pin the clikit-extraction constraint and the
+   per-repo CLAUDE.md; one would pin the shared-clikit dependency and the
    registry/plain-language gates locally.
 6. **Stale-README sweep** across the family (v-pkg, v-stdlib) — low effort, high
    clarity payoff given how fast these repos moved.
