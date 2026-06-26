@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"sort"
 
-	"github.com/vista-cloud-dev/v-pkg/clikit"
+	"github.com/vista-cloud-dev/clikit"
 )
 
 // NewCmd is `v new <domain>` (CQ4): scaffold a new v domain tool. It enforces
