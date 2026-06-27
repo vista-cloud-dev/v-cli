@@ -1,3 +1,6 @@
 # ignore dist/ build output EXCEPT the committed, drift-gated registry artifact
 /dist/*
 !/dist/*.json
+
+# Local root-built binary (symlinked onto PATH: ~/scripts/bin/v -> ./v)
+/v
