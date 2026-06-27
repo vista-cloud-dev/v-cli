@@ -35,11 +35,11 @@ type CLI struct {
 
 	New NewCmd `cmd:"" group:"Scaffold" help:"Scaffold a new v domain tool from a built-in skeleton."`
 
-	Menu    clikit.MenuCmd    `cmd:"" group:"Introspect" help:"Browse the command surface interactively (palette)."`
-	Schema  clikit.SchemaCmd  `cmd:"" group:"Introspect" help:"Emit the aggregated command/flag/enum tree as JSON (agent discovery)."`
-	Version clikit.VersionCmd `cmd:"" group:"Introspect" help:"Show version and build info."`
+	Menu    clikit.MenuCmd    `cmd:"" help:"Browse the command surface interactively (palette)."`
+	Schema  clikit.SchemaCmd  `cmd:"" hidden:"" help:"Emit the aggregated command/flag/enum tree as JSON (agent discovery)."`
+	Version clikit.VersionCmd `cmd:"" help:"Show version and build info."`
 
-	InstallCompletions kongplete.InstallCompletions `cmd:"" help:"Install shell tab-completions."`
+	InstallCompletions kongplete.InstallCompletions `cmd:"" hidden:"" help:"Install shell tab-completions."`
 }
 
 func main() {
