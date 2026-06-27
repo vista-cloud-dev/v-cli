@@ -33,7 +33,7 @@ type CLI struct {
 	Pkg pkgcli.Commands `cmd:"" name:"pkg" group:"Domains" help:"VistA package (KIDS) tools: decompose / assemble / roundtrip / canonicalize / lint."`
 	Rpc rpccli.Commands `cmd:"" name:"rpc" group:"Domains" help:"VistA RPC Broker tools: tap the native XWBDEBUG log to view / save live RPC traffic."`
 
-	New NewCmd `cmd:"" group:"Scaffold" help:"Scaffold a new v domain tool from a built-in skeleton."`
+	New NewCmd `cmd:"" help:"Scaffold a new v domain tool from a built-in skeleton."`
 
 	Menu    clikit.MenuCmd    `cmd:"" help:"Browse the command surface interactively (palette)."`
 	Schema  clikit.SchemaCmd  `cmd:"" hidden:"" help:"Emit the aggregated command/flag/enum tree as JSON (agent discovery)."`
