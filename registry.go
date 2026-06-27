@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/vista-cloud-dev/v-pkg/pkgcli"
 	"github.com/vista-cloud-dev/v-pkg/vcontract"
+	"github.com/vista-cloud-dev/v-rpc/rpccli"
 )
 
 // Registry is the `v` umbrella's aggregated command surface (v-cli-platform.md
@@ -26,6 +27,7 @@ func buildRegistry() Registry {
 		CLI:           "v",
 		Domains: []vcontract.Manifest{
 			pkgcli.Contract(),
+			rpccli.Contract(),
 		},
 	}
 }

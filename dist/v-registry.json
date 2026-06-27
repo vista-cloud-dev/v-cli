@@ -420,6 +420,406 @@
           ]
         }
       ]
+    },
+    {
+      "domain": "rpc",
+      "version": "0.1.0",
+      "contractVersion": "1.0",
+      "exits": [
+        {
+          "code": 0,
+          "meaning": "ok"
+        },
+        {
+          "code": 1,
+          "meaning": "runtime error"
+        },
+        {
+          "code": 2,
+          "meaning": "usage error"
+        },
+        {
+          "code": 3,
+          "meaning": "check / gate failed"
+        },
+        {
+          "code": 4,
+          "meaning": "refused / substrate unavailable"
+        }
+      ],
+      "commands": [
+        {
+          "path": [
+            "debug"
+          ],
+          "help": "Tap the RPC Broker's native XWBDEBUG log: view or save live RPC traffic."
+        },
+        {
+          "path": [
+            "debug",
+            "tail"
+          ],
+          "help": "Stream live RPC traffic to the terminal (Ctrl-C to stop).",
+          "flags": [
+            {
+              "name": "engine",
+              "type": "enum",
+              "enum": [
+                "ydb",
+                "iris"
+              ],
+              "default": "ydb",
+              "help": "Engine to reach: ydb or iris ($VRPC_ENGINE)."
+            },
+            {
+              "name": "transport",
+              "type": "enum",
+              "enum": [
+                "local",
+                "docker",
+                "remote"
+              ],
+              "default": "docker",
+              "help": "Driver transport: local | docker | remote ($VRPC_TRANSPORT)."
+            },
+            {
+              "name": "container",
+              "type": "string",
+              "help": "Engine container/instance name; sets M_\u003cENGINE\u003e_CONTAINER ($VRPC_CONTAINER)."
+            },
+            {
+              "name": "all",
+              "type": "bool",
+              "help": "Show every log line, not just RPC: lines."
+            },
+            {
+              "name": "filter",
+              "type": "string",
+              "help": "Only RPCs whose name contains this (case-insensitive)."
+            },
+            {
+              "name": "interval",
+              "type": "float",
+              "default": "1.0",
+              "help": "Poll interval in seconds."
+            },
+            {
+              "name": "duration",
+              "type": "int",
+              "default": "0",
+              "help": "Stop after this long (e.g. 30s); 0 = run until Ctrl-C."
+            },
+            {
+              "name": "level",
+              "type": "enum",
+              "enum": [
+                "2",
+                "3"
+              ],
+              "default": "2",
+              "help": "XWBDEBUG level to arm: 2=names, 3=names+params (PHI)."
+            },
+            {
+              "name": "keep",
+              "type": "bool",
+              "help": "Leave XWBDEBUG armed on exit (default restores the prior level)."
+            },
+            {
+              "name": "no-clear",
+              "type": "bool",
+              "help": "Do not clear the existing XWBLOG on start (capture what is already buffered too)."
+            },
+            {
+              "name": "restore-to",
+              "type": "int",
+              "default": "-1",
+              "help": "Level to restore on exit; -1 = the level found at start. Use 1 to force stock if a prior run left it armed."
+            }
+          ]
+        },
+        {
+          "path": [
+            "debug",
+            "capture"
+          ],
+          "help": "Append live RPC traffic to a file as LDJSON for offline analysis.",
+          "flags": [
+            {
+              "name": "engine",
+              "type": "enum",
+              "enum": [
+                "ydb",
+                "iris"
+              ],
+              "default": "ydb",
+              "help": "Engine to reach: ydb or iris ($VRPC_ENGINE)."
+            },
+            {
+              "name": "transport",
+              "type": "enum",
+              "enum": [
+                "local",
+                "docker",
+                "remote"
+              ],
+              "default": "docker",
+              "help": "Driver transport: local | docker | remote ($VRPC_TRANSPORT)."
+            },
+            {
+              "name": "container",
+              "type": "string",
+              "help": "Engine container/instance name; sets M_\u003cENGINE\u003e_CONTAINER ($VRPC_CONTAINER)."
+            },
+            {
+              "name": "all",
+              "type": "bool",
+              "help": "Show every log line, not just RPC: lines."
+            },
+            {
+              "name": "filter",
+              "type": "string",
+              "help": "Only RPCs whose name contains this (case-insensitive)."
+            },
+            {
+              "name": "interval",
+              "type": "float",
+              "default": "1.0",
+              "help": "Poll interval in seconds."
+            },
+            {
+              "name": "duration",
+              "type": "int",
+              "default": "0",
+              "help": "Stop after this long (e.g. 30s); 0 = run until Ctrl-C."
+            },
+            {
+              "name": "level",
+              "type": "enum",
+              "enum": [
+                "2",
+                "3"
+              ],
+              "default": "2",
+              "help": "XWBDEBUG level to arm: 2=names, 3=names+params (PHI)."
+            },
+            {
+              "name": "keep",
+              "type": "bool",
+              "help": "Leave XWBDEBUG armed on exit (default restores the prior level)."
+            },
+            {
+              "name": "no-clear",
+              "type": "bool",
+              "help": "Do not clear the existing XWBLOG on start (capture what is already buffered too)."
+            },
+            {
+              "name": "restore-to",
+              "type": "int",
+              "default": "-1",
+              "help": "Level to restore on exit; -1 = the level found at start. Use 1 to force stock if a prior run left it armed."
+            },
+            {
+              "name": "out",
+              "type": "string",
+              "required": true,
+              "help": "Output file (file://PATH or PATH); appended as LDJSON."
+            },
+            {
+              "name": "quiet",
+              "type": "bool",
+              "help": "Do not also echo captured RPCs to the terminal."
+            }
+          ]
+        },
+        {
+          "path": [
+            "debug",
+            "status"
+          ],
+          "help": "Show the current XWBDEBUG level and active log jobs.",
+          "flags": [
+            {
+              "name": "engine",
+              "type": "enum",
+              "enum": [
+                "ydb",
+                "iris"
+              ],
+              "default": "ydb",
+              "help": "Engine to reach: ydb or iris ($VRPC_ENGINE)."
+            },
+            {
+              "name": "transport",
+              "type": "enum",
+              "enum": [
+                "local",
+                "docker",
+                "remote"
+              ],
+              "default": "docker",
+              "help": "Driver transport: local | docker | remote ($VRPC_TRANSPORT)."
+            },
+            {
+              "name": "container",
+              "type": "string",
+              "help": "Engine container/instance name; sets M_\u003cENGINE\u003e_CONTAINER ($VRPC_CONTAINER)."
+            }
+          ]
+        },
+        {
+          "path": [
+            "debug",
+            "arm"
+          ],
+          "help": "Turn XWBDEBUG capture on (set the broker debug level).",
+          "flags": [
+            {
+              "name": "engine",
+              "type": "enum",
+              "enum": [
+                "ydb",
+                "iris"
+              ],
+              "default": "ydb",
+              "help": "Engine to reach: ydb or iris ($VRPC_ENGINE)."
+            },
+            {
+              "name": "transport",
+              "type": "enum",
+              "enum": [
+                "local",
+                "docker",
+                "remote"
+              ],
+              "default": "docker",
+              "help": "Driver transport: local | docker | remote ($VRPC_TRANSPORT)."
+            },
+            {
+              "name": "container",
+              "type": "string",
+              "help": "Engine container/instance name; sets M_\u003cENGINE\u003e_CONTAINER ($VRPC_CONTAINER)."
+            },
+            {
+              "name": "level",
+              "type": "enum",
+              "enum": [
+                "2",
+                "3"
+              ],
+              "default": "2",
+              "help": "XWBDEBUG level: 2=names, 3=names+params (PHI)."
+            }
+          ]
+        },
+        {
+          "path": [
+            "debug",
+            "disarm"
+          ],
+          "help": "Turn XWBDEBUG capture off (restore the debug level).",
+          "flags": [
+            {
+              "name": "engine",
+              "type": "enum",
+              "enum": [
+                "ydb",
+                "iris"
+              ],
+              "default": "ydb",
+              "help": "Engine to reach: ydb or iris ($VRPC_ENGINE)."
+            },
+            {
+              "name": "transport",
+              "type": "enum",
+              "enum": [
+                "local",
+                "docker",
+                "remote"
+              ],
+              "default": "docker",
+              "help": "Driver transport: local | docker | remote ($VRPC_TRANSPORT)."
+            },
+            {
+              "name": "container",
+              "type": "string",
+              "help": "Engine container/instance name; sets M_\u003cENGINE\u003e_CONTAINER ($VRPC_CONTAINER)."
+            },
+            {
+              "name": "level",
+              "type": "int",
+              "default": "1",
+              "help": "Level to restore XWBDEBUG to (1 = stock VistA default)."
+            }
+          ]
+        },
+        {
+          "path": [
+            "debug",
+            "clear"
+          ],
+          "help": "Wipe the buffered XWBLOG (leave the engine pristine).",
+          "flags": [
+            {
+              "name": "engine",
+              "type": "enum",
+              "enum": [
+                "ydb",
+                "iris"
+              ],
+              "default": "ydb",
+              "help": "Engine to reach: ydb or iris ($VRPC_ENGINE)."
+            },
+            {
+              "name": "transport",
+              "type": "enum",
+              "enum": [
+                "local",
+                "docker",
+                "remote"
+              ],
+              "default": "docker",
+              "help": "Driver transport: local | docker | remote ($VRPC_TRANSPORT)."
+            },
+            {
+              "name": "container",
+              "type": "string",
+              "help": "Engine container/instance name; sets M_\u003cENGINE\u003e_CONTAINER ($VRPC_CONTAINER)."
+            }
+          ]
+        },
+        {
+          "path": [
+            "debug",
+            "ping"
+          ],
+          "help": "Fire test RPCs at a broker so a tap has traffic to capture.",
+          "flags": [
+            {
+              "name": "addr",
+              "type": "string",
+              "default": "127.0.0.1:9430",
+              "help": "Broker host:port to ping; vehu=127.0.0.1:9430 ($VRPC_ADDR)."
+            },
+            {
+              "name": "rpc",
+              "type": "list",
+              "help": "RPC name to send; repeatable. Default: a small no-arg set."
+            },
+            {
+              "name": "count",
+              "type": "int",
+              "default": "1",
+              "help": "Send the whole set this many times."
+            },
+            {
+              "name": "timeout",
+              "type": "int",
+              "default": "3s",
+              "help": "Per-connection read timeout."
+            }
+          ]
+        }
+      ]
     }
   ]
 }

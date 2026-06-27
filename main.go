@@ -22,6 +22,7 @@ import (
 
 	"github.com/vista-cloud-dev/clikit"
 	"github.com/vista-cloud-dev/v-pkg/pkgcli"
+	"github.com/vista-cloud-dev/v-rpc/rpccli"
 )
 
 // CLI is the umbrella grammar: one named field per domain (mounted as that
@@ -30,6 +31,7 @@ type CLI struct {
 	clikit.Globals
 
 	Pkg pkgcli.Commands `cmd:"" name:"pkg" group:"Domains" help:"VistA package (KIDS) tools: decompose / assemble / roundtrip / canonicalize / lint."`
+	Rpc rpccli.Commands `cmd:"" name:"rpc" group:"Domains" help:"VistA RPC Broker tools: tap the native XWBDEBUG log to view / save live RPC traffic."`
 
 	New NewCmd `cmd:"" group:"Scaffold" help:"Scaffold a new v domain tool from a built-in skeleton."`
 
