@@ -39,4 +39,4 @@ named CLI field in `v-cli/main.go` with no further clikit work.
    `go mod edit -require=github.com/vista-cloud-dev/clikit@v0.1.0` then
    `GOFLAGS=-mod=mod GOPROXY=direct go mod tidy`.
 
-See [[../v-cli-platform.md]] §6 and the [status report](../v-cli-status-report-2026-06-25.md) finding #3.
+See [[../v-cli-platform.md]] §6 and the [status report](../archive/v-cli-status-report-2026-06-25.md) finding #3.

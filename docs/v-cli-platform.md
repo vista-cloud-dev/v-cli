@@ -28,7 +28,7 @@ relates_to: https://github.com/vista-cloud-dev/docs/blob/main/vsl-msl/msl-vsl-co
 > in the org-level [`CLAUDE.md`](../../CLAUDE.md) § *Naming & registry
 > conventions*; **this doc is the canonical full spec** it points to (the naming
 > scheme §2, the contract §4, the registry §5, scaffolding §6). For the current
-> build state see the [status report](./v-cli-status-report-2026-06-25.md).
+> build state see the [status report](archive/v-cli-status-report-2026-06-25.md).
 >
 > **One-line summary:** A single `v` CLI wraps each insider VistA subsystem (KIDS,
 > FileMan, XPAR, the RPC Broker, TaskMan, …) in a **plain-language** Go command
@@ -261,7 +261,7 @@ literal `v pkg` invocations — `v pkg build && v pkg install && … && v pkg un
 - `clikit` (shared Go CLI conventions, in the m-cli / v-pkg toolchain) — the
   foundation the `v` contract extends. (Originates from `go-cli-template`; the
   extraction into one shared importable module — the prerequisite for mounting a
-  *second* domain — is tracked in the [status report](./v-cli-status-report-2026-06-25.md).)
+  *second* domain — is tracked in the [status report](archive/v-cli-status-report-2026-06-25.md).)
 - [`../../CLAUDE.md`](../../CLAUDE.md) — vista-cloud-dev org rules; the
   `m-driver-sdk` *serialize-the-contract* model this platform mirrors.
 
