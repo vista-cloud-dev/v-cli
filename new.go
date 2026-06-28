@@ -65,6 +65,21 @@ func scaffoldDomain(domain string) (map[string]string, error) {
 		"README.md": fmt.Sprintf("# v-%s\n\nThe `v %s` domain of the v CLI. Scaffolded by `v new`.\n\n"+
 			"Offline verbs run standalone; the `v` umbrella mounts `%s.Commands` as `v %s <verb>`.\n",
 			domain, domain, pkg, domain),
+		// Born with the standard vista-cloud-dev docs/ layout (remediation OQ-5)
+		// so a new domain never starts with an ad-hoc docs/ tree.
+		"docs/README.md": fmt.Sprintf("# docs/ — v-%s\n\n"+
+			"Standard vista-cloud-dev `docs/` layout — do not invent per-repo folders "+
+			"(`tracking/`, `plans/`, `prompts/`, `historical/`).\n\n"+
+			"```\ndocs/\n"+
+			"  README.md   # this index — the one navigation entry point\n"+
+			"  guides/     # how-to for users of this domain (optional)\n"+
+			"  design/     # this repo's own design notes / ADRs (optional)\n"+
+			"  memory/     # auto-memory — DURABLE facts only (created when first written)\n"+
+			"  archive/    # retired docs from THIS repo — git mv'd, never deleted\n"+
+			"```\n\n"+
+			"Live-work trackers sit in `docs/` root as `<effort>-tracker.md` and move to "+
+			"`docs/archive/` when the effort lands.\n",
+			domain),
 		"Makefile": "BIN ?= v-" + domain + "\n\nbuild:\n\tgo build -o dist/$(BIN) .\n\n" +
 			"test:\n\tgo test -race -cover ./...\n\nlint:\n\tgolangci-lint run ./...\n\n" +
 			"check: lint test build\n",
