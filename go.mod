@@ -5,7 +5,7 @@ go 1.26.3
 require (
 	github.com/alecthomas/kong v1.15.0
 	github.com/vista-cloud-dev/v-pkg v0.5.0
-	github.com/vista-cloud-dev/v-rpc-debug v0.2.0
+	github.com/vista-cloud-dev/v-rpc-debug v0.3.0
 	github.com/willabides/kongplete v0.4.0
 )
 
