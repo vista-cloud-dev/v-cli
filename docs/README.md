@@ -10,6 +10,11 @@ Documentation for **`v-cli`** — the `v` VistA developer-tools umbrella CLI.
 
 ## Folders
 
+- **`proposals/`** — live, decision-seeking proposals.
+  - [`v-domain-template.md`](proposals/v-domain-template.md) — *draft* — replace
+    `v new`'s embedded skeleton with a thin, drift-gated `v-domain-template` repo
+    that `v new` renders from (re-opens CQ4; fixes the scaffold-drift that left new
+    domains without `.envrc`/`repo.meta.json`/`.golangci.yml`).
 - **`memory/`** — auto-memory (durable gotchas/recipes only); see
   [`memory/MEMORY.md`](memory/MEMORY.md) for the index.
 - **`archive/`** — retired docs kept for history (e.g. the dated
