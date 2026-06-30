@@ -219,6 +219,21 @@
               "name": "allow-overwrite",
               "type": "bool",
               "help": "Overwrite existing routines WITHOUT capturing a pre-image (unsafe: uninstall cannot then restore them)."
+            },
+            {
+              "name": "skip-env-check",
+              "type": "bool",
+              "help": "Skip the build's environment-check routine + Required-Build (#9.611) enforcement before filing (default: run them, KIDS-faithful)."
+            },
+            {
+              "name": "answer",
+              "type": "list",
+              "help": "Pre-answer a build install question as NAME=VALUE (the internal answer $ANSWER^XPDIQ returns); repeatable."
+            },
+            {
+              "name": "register-package",
+              "type": "string",
+              "help": "Record the PACKAGE #9.4 footprint under this long NAME (find-or-create by the install-name prefix; stamps VERSION + PATCH APPLICATION HISTORY so $VER/$PATCH^XPDUTL see the install)."
             }
           ],
           "args": [
@@ -408,6 +423,11 @@
               "name": "verify",
               "type": "bool",
               "help": "After a restore/back-out, confirm the live routines now match the re-applied artifact (verify-clean)."
+            },
+            {
+              "name": "deregister",
+              "type": "bool",
+              "help": "Also clear the PACKAGE #9.4 patch-history footprint a prior 'install --register-package' stamped, so $PATCH^XPDUTL no longer reports this patch (symmetric to register)."
             }
           ],
           "args": [
@@ -422,9 +442,9 @@
       ]
     },
     {
-      "domain": "rpc",
-      "version": "0.1.0",
-      "contractVersion": "1.0",
+      "domain": "rpc-debug",
+      "version": "0.3.0",
+      "contractVersion": "2.0",
       "exits": [
         {
           "code": 0,
@@ -450,13 +470,6 @@
       "commands": [
         {
           "path": [
-            "debug"
-          ],
-          "help": "Tap the RPC Broker's native XWBDEBUG log: view or save live RPC traffic."
-        },
-        {
-          "path": [
-            "debug",
             "tail"
           ],
           "help": "Stream live RPC traffic to the terminal (Ctrl-C to stop).",
@@ -539,7 +552,6 @@
         },
         {
           "path": [
-            "debug",
             "capture"
           ],
           "help": "Append live RPC traffic to a file as LDJSON for offline analysis.",
@@ -633,7 +645,6 @@
         },
         {
           "path": [
-            "debug",
             "status"
           ],
           "help": "Show the current XWBDEBUG level and active log jobs.",
@@ -668,7 +679,6 @@
         },
         {
           "path": [
-            "debug",
             "arm"
           ],
           "help": "Turn XWBDEBUG capture on (set the broker debug level).",
@@ -713,7 +723,6 @@
         },
         {
           "path": [
-            "debug",
             "disarm"
           ],
           "help": "Turn XWBDEBUG capture off (restore the debug level).",
@@ -754,7 +763,6 @@
         },
         {
           "path": [
-            "debug",
             "clear"
           ],
           "help": "Wipe the buffered XWBLOG (leave the engine pristine).",
@@ -789,7 +797,6 @@
         },
         {
           "path": [
-            "debug",
             "ping"
           ],
           "help": "Fire test RPCs at a broker so a tap has traffic to capture.",
@@ -816,6 +823,95 @@
               "type": "int",
               "default": "3s",
               "help": "Per-connection read timeout."
+            }
+          ]
+        },
+        {
+          "path": [
+            "doctor"
+          ],
+          "help": "Diagnose the CPRS↔VistA broker network path (and --fix it).",
+          "flags": [
+            {
+              "name": "container",
+              "type": "string",
+              "default": "vehu",
+              "help": "VistA container to inspect ($VRPC_CONTAINER)."
+            },
+            {
+              "name": "broker-port",
+              "type": "int",
+              "default": "9430",
+              "help": "Broker container-side port."
+            },
+            {
+              "name": "relay-addr",
+              "type": "string",
+              "default": "0.0.0.0:19431",
+              "help": "Relay host address ($VRPC_RELAY_ADDR)."
+            },
+            {
+              "name": "guest-host",
+              "type": "string",
+              "default": "10.0.2.2",
+              "help": "How the VM names the host (VBox NAT = 10.0.2.2)."
+            },
+            {
+              "name": "timeout",
+              "type": "int",
+              "default": "3s",
+              "help": "Per-probe TCP timeout."
+            },
+            {
+              "name": "fix",
+              "type": "bool",
+              "help": "Start the relay if it's needed and missing, then re-check."
+            }
+          ]
+        },
+        {
+          "path": [
+            "relay"
+          ],
+          "help": "Republish the loopback-bound broker so a VM (CPRS) can reach it.",
+          "flags": [
+            {
+              "name": "listen",
+              "type": "string",
+              "default": "0.0.0.0:19431",
+              "help": "Host address to listen on ($VRPC_RELAY_ADDR)."
+            },
+            {
+              "name": "to",
+              "type": "string",
+              "help": "Broker backend host:port. Default: discovered from --container, else 127.0.0.1:9430."
+            },
+            {
+              "name": "container",
+              "type": "string",
+              "default": "vehu",
+              "help": "Container to discover the broker port from ($VRPC_CONTAINER)."
+            },
+            {
+              "name": "broker-port",
+              "type": "int",
+              "default": "9430",
+              "help": "Broker container-side port (for discovery)."
+            },
+            {
+              "name": "install",
+              "type": "bool",
+              "help": "Install a persistent service (user systemd on Linux) and exit."
+            },
+            {
+              "name": "uninstall",
+              "type": "bool",
+              "help": "Remove the persistent service and exit."
+            },
+            {
+              "name": "status",
+              "type": "bool",
+              "help": "Report whether the relay is installed/running and exit."
             }
           ]
         }

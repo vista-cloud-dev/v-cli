@@ -30,7 +30,7 @@ import (
 type CLI struct {
 	clikit.Globals
 
-	Pkg pkgcli.Commands `cmd:"" name:"pkg" group:"Domains" help:"VistA package (KIDS) tools: decompose / assemble / roundtrip / canonicalize / lint."`
+	Pkg      pkgcli.Commands `cmd:"" name:"pkg" group:"Domains" help:"VistA package (KIDS) tools: decompose / assemble / roundtrip / canonicalize / lint."`
 	RPCDebug rpccli.Commands `cmd:"" name:"rpc-debug" group:"Domains" help:"VistA RPC Broker debug tools: tap the native XWBDEBUG log to view / save live RPC traffic (the safe, read-only oracle)."`
 
 	New NewCmd `cmd:"" help:"Scaffold a new v domain tool from a built-in skeleton."`
